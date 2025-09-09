@@ -3,16 +3,7 @@ import os
 import argparse
 
 def image_to_sketch(input_path, output_path="output/sketch.png", intensity=256, color=False):
-    """
-    Converts an image to a pencil sketch.
-
-    Parameters:
-    - input_path: str, path to input image
-    - output_path: str, path to save the sketch
-    - intensity: int, scale for the sketch contrast (default 256)
-    - color: bool, True to keep sketch in color, False for grayscale
-    """
-    # Read the image
+  
     img = cv2.imread(input_path)
     if img is None:
         raise FileNotFoundError(f"Image not found: {input_path}")
@@ -32,7 +23,6 @@ def image_to_sketch(input_path, output_path="output/sketch.png", intensity=256, 
     # Create pencil sketch
     sketch_gray = cv2.divide(gray, inverted_blur, scale=intensity)
 
-    # If color mode is on, blend with original image
     if color:
         sketch_color = cv2.cvtColor(sketch_gray, cv2.COLOR_GRAY2BGR)
         sketch = cv2.multiply(sketch_color, img, scale=1/256.0)
